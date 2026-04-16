@@ -49,7 +49,7 @@ parsed_df = kafka_df \
 
 stats_df = parsed_df \
     .groupBy(
-        window(col("Tiempo_Procesado", "30 seconds"),
+        window(col("Tiempo_Procesado"), "30 seconds"),
         col("Fecha").alias("Fecha_Moneda"),
         col("Tendencia"),
         col("Clasificacion_Valor")
