@@ -49,7 +49,8 @@ parsed_df = kafka_df \
 
 stats_df = parsed_df \
     .groupBy(
-        window(col("Tiempo_Procesado"), "30 seconds"),
+        window(col("Tiempo_Procesado", "30 seconds"),
+        col("Fecha").alias("Fecha_Moneda"),
         col("Tendencia"),
         col("Clasificacion_Valor")
     ) \
@@ -58,7 +59,7 @@ stats_df = parsed_df \
         spark_round(avg("Valor_TRM"), 2).alias("TRM_Promedio"),
         spark_round(min("Valor_TRM"), 2).alias("TRM_Minima"),
         spark_round(max("Valor_TRM"), 2).alias("TRM_Maxima"),
-        spark_round(avg("Variacion_Pct"), 4).alias("Variacion_Promedio_Pct")
+        spark_round(avg("Variacion_Pct"), 4).alias("Var_Promedio_Pct")
     )
 
 query = stats_df \
